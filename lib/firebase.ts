@@ -12,11 +12,18 @@ const firebaseConfig = {
   measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
 };
 
-const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
-const auth = getAuth(app);
-const googleProvider = new GoogleAuthProvider();
+const hasFirebaseConfig = Object.values(firebaseConfig).every(Boolean);
 
-googleProvider.setCustomParameters({ prompt: "select_account" });
+const app = hasFirebaseConfig
+  ? getApps().length === 0
+    ? initializeApp(firebaseConfig)
+    : getApps()[0]
+  : null;
+
+const auth = app ? getAuth(app) : null;
+const googleProvider = app ? new GoogleAuthProvider() : null;
+
+googleProvider?.setCustomParameters({ prompt: "select_account" });
 
 export { auth, googleProvider };
 export default app;

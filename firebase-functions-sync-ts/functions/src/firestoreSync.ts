@@ -4,7 +4,7 @@ import { connectToMongo } from "./utils/mongo";
 const collectionPath = "leaderboard/{docId}";
 
 // Firestore → MongoDB: Create
-export const syncLeaderboardCreate = onDocumentCreated(collectionPath, async (event) => {
+export const syncLeaderboardCreate = onDocumentCreated(collectionPath, async (event: any) => {
   const docId = event.params.docId;
   const data = event.data;
 
@@ -25,7 +25,7 @@ export const syncLeaderboardCreate = onDocumentCreated(collectionPath, async (ev
 });
 
 // Firestore → MongoDB: Update
-export const syncLeaderboardUpdate = onDocumentUpdated(collectionPath, async (event) => {
+export const syncLeaderboardUpdate = onDocumentUpdated(collectionPath, async (event: any) => {
   const docId = event.params.docId;
   const newData = event.data?.after;
 
@@ -43,7 +43,7 @@ export const syncLeaderboardUpdate = onDocumentUpdated(collectionPath, async (ev
 });
 
 // Firestore → MongoDB: Delete
-export const syncLeaderboardDelete = onDocumentDeleted(collectionPath, async (event) => {
+export const syncLeaderboardDelete = onDocumentDeleted(collectionPath, async (event: any) => {
   const docId = event.params.docId;
 
   const db = await connectToMongo();

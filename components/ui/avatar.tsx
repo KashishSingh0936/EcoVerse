@@ -45,3 +45,11 @@ const Avatar = React.forwardRef<HTMLDivElement, AvatarProps>(
 Avatar.displayName = "Avatar"
 
 export { Avatar }
+
+export function AvatarFallback({ children, className }: { children?: React.ReactNode; className?: string }) {
+  return (
+    <div className={cn("flex h-10 w-10 items-center justify-center rounded-full bg-muted text-sm font-medium text-muted-foreground", className)}>
+      {children}
+    </div>
+  )
+}

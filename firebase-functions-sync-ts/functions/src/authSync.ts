@@ -2,7 +2,7 @@ import { onUserCreated, onUserDeleted } from "firebase-functions/v2/auth";
 import { connectToMongo } from "./utils/mongo";
 
 // Handle user signup
-export const handleUserSignup = onUserCreated(async (event) => {
+export const handleUserSignup = onUserCreated(async (event: any) => {
   const user = event.data;
   const db = await connectToMongo();
   const collection = db.collection("users");
@@ -19,7 +19,7 @@ export const handleUserSignup = onUserCreated(async (event) => {
 });
 
 // Handle user deletion
-export const handleUserDeletion = onUserDeleted(async (event) => {
+export const handleUserDeletion = onUserDeleted(async (event: any) => {
   const user = event.data;
   const db = await connectToMongo();
   const collection = db.collection("users");

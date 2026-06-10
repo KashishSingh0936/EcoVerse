@@ -48,7 +48,7 @@ exports.syncLeaderboardCreate = functions.firestore
         data: {
             firebaseId: context.params.docId,
             name: data.name,
-            score: data.score,
+            points: data.points,
         },
     });
     console.log(`📥 Firestore → PostgreSQL: Created ${context.params.docId}`);
@@ -61,7 +61,7 @@ exports.syncLeaderboardUpdate = functions.firestore
         where: { firebaseId: context.params.docId },
         data: {
             name: newData.name,
-            score: newData.score,
+            points: newData.points,
         },
     });
     console.log(`🔁 Updated ${context.params.docId}`);

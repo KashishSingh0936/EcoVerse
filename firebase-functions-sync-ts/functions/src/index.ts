@@ -9,7 +9,7 @@ import { connectToMongo } from "./utils/mongo";
 const leaderboardPath = "leaderboard/{docId}";
 
 // AUTH: onCreate
-export const handleUserSignup = onUserCreated(async (event) => {
+export const handleUserSignup = onUserCreated(async (event: any) => {
   const user = event.data;
   const db = await connectToMongo();
   const users = db.collection("users");
@@ -26,7 +26,7 @@ export const handleUserSignup = onUserCreated(async (event) => {
 });
 
 // AUTH: onDelete
-export const handleUserDeletion = onUserDeleted(async (event) => {
+export const handleUserDeletion = onUserDeleted(async (event: any) => {
   const user = event.data;
   const db = await connectToMongo();
   const users = db.collection("users");
@@ -36,7 +36,7 @@ export const handleUserDeletion = onUserDeleted(async (event) => {
 });
 
 // FIRESTORE: onCreate
-export const syncLeaderboardCreate = onDocumentCreated(leaderboardPath, async (event) => {
+export const syncLeaderboardCreate = onDocumentCreated(leaderboardPath, async (event: any) => {
   const docId = event.params.docId;
   const data = event.data;
 
@@ -57,7 +57,7 @@ export const syncLeaderboardCreate = onDocumentCreated(leaderboardPath, async (e
 });
 
 // FIRESTORE: onUpdate
-export const syncLeaderboardUpdate = onDocumentUpdated(leaderboardPath, async (event) => {
+export const syncLeaderboardUpdate = onDocumentUpdated(leaderboardPath, async (event: any) => {
   const docId = event.params.docId;
   const newData = event.data?.after;
 
@@ -75,7 +75,7 @@ export const syncLeaderboardUpdate = onDocumentUpdated(leaderboardPath, async (e
 });
 
 // FIRESTORE: onDelete
-export const syncLeaderboardDelete = onDocumentDeleted(leaderboardPath, async (event) => {
+export const syncLeaderboardDelete = onDocumentDeleted(leaderboardPath, async (event: any) => {
   const docId = event.params.docId;
 
   const db = await connectToMongo();

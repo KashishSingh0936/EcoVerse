@@ -62,6 +62,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const signup = async (name: string, email: string, password: string): Promise<boolean> => {
     try {
+      if (!auth) {
+        console.error("Firebase auth is unavailable")
+        toast({
+          title: "Authentication unavailable",
+          description: "Firebase is not configured for this environment.",
+          variant: "destructive"
+        })
+        return false
+      }
+
       const userCredential = await createUserWithEmailAndPassword(auth, email, password)
 
       const response = await fetch("/api/auth/signup", {
@@ -115,6 +125,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
    const login = async (email: string, password: string): Promise<boolean> => {
      try {
+       if (!auth) {
+         console.error("Firebase auth is unavailable")
+         toast({
+           title: "Authentication unavailable",
+           description: "Firebase is not configured for this environment.",
+           variant: "destructive"
+         })
+         return false
+       }
+
        // First authenticate with Firebase
        const userCredential = await signInWithEmailAndPassword(
         auth,
@@ -180,7 +200,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         console.error("❌ Failed to authenticate Google user")
         return false
       }
-    } catch (error) {
     } catch (error) {
       console.error("🔥 Google sign-in error:", error)
 
