@@ -12,7 +12,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Missing fields" }, { status: 400 })
   }
 
-  let userDoc = null
+  let userDoc: any = null
   try {
     await dbConnect()
     userDoc = await User.findOneAndUpdate(
@@ -43,6 +43,11 @@ export async function POST(req: Request) {
   } catch (err) {
     console.error("Failed to upsert user in google route:", err)
     return NextResponse.json({ error: "Database error" }, { status: 500 })
+  }
+
+  if (!userDoc) {
+    console.error("User upsert returned null in google route")
+    return NextResponse.json({ error: "User not found" }, { status: 500 })
   }
 
   // Generate the JWT
